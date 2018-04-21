@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type"text/javascript"
+        src="https://cdn.jsdelivr.net/npm/vue"></script>
+        
+    </head>
+</html>
+<body>
+    <main>
+            <table>
+                <thead>
+                      <th>NOMBRE</th>
+                      <th>Apellido</th>  
+                </thead>
+                <tbody>
+                    <tr v-for="(item,idx) in users">
+                        <td>{{item.Nombre}}</td>
+                        <td>{{item.Apellido}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <form @submit.prevent="createUser()">
+                 <input type="texto" placeholder="Nombre" v-model="objUser.Nombre"/>
+                 <input type="texto" placeholder="Apellido" v-model="objUser.Apellido"/>
+                 <input type="submit" value="GUARDAR"/>
+            </form>    
+
+            {{ $data }}
+    </main>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el:'main',
+        data:{
+            users:[
+                {'Nombre':'Ernesto','Apellido':'Liberio'},
+                {'Nombre':'Mali','Apellido':'Vera'},
+                {'Nombre':'Jose','Apellido':'vera'}
+            ],
+            objUser:{'Nombre':null,'Apellido':null}
+        },
+        methods:{
+            createUser(){
+                   this.users.unshift(this.objUser);
+
+                   this.objUser={'nombre':null,'apellido':null}
+            }
+        },
+        computed:{
+            orderUser(){
+                return this.users.sort(function(a,b){
+                    if(a.nombre <b.nombre){
+                        return 1;
+                    }
+                    if(a.nombre < b.nombre){
+                        return -1;
+                    }
+                    return 0;
+                });
+            }
+        }
+    });
+</script>

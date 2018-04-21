@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type"text/javascript"
+        src="https://cdn.jsdelivr.net/npm/vue"></script>
+        
+    </head>
+</html>
+<body>
+    <main>
+            <table>
+                <thead>
+                      <th>NOMBRE</th>
+                      <th>CI</th>  
+                      <th> TELEFONO </th>
+                      <th>EDAD</th>
+                </thead>
+                <tbody>
+                    <tr v-for="(item,idx) in users">
+                        <td>{{item.Nombre}}</td>
+                        <td>{{item.Ci}}</td>
+                        <td>{{item.Telefono}}</td> 
+                        <td>{{item.Edad}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <form @submit.prevent="createUser()">
+                 <input type="texto" placeholder="Nombre" v-model="objUser.Nombre"/>
+                 <input type="texto" placeholder="CI" v-model="objUser.CI"/>
+                 <input type="texto" placeholder="Telefono" v-model="objUser.Telefono"/>
+                 <input type="texto" placeholder="Edad" v-model="objUser.Edad"/>
+                 <input type="submit" value="GUARDAR"/>
+            </form>    
+
+            {{ $data }}
+    </main>
+</body>
+<script type="text/javascript">
+    new Vue({
+        el:'main',
+        data:{
+            users:[
+                {'Nombre':'Ernesto','CI':'092928340','Telefono':'465445','Edad':'25'},
+                {'Nombre':'Mali','CI':'092925448','Telefono':'465445','Edad':'25'},
+                {'Nombre':'Jose','CI':'vera','Telefono':'465445','Edad':'25'}
+                {'Nombre':'Javier','CI':'vera','Telefono':'465445','Edad':'25'}
+            ],
+            objUser:{'Nombre':null,'Ci':null,'Telefono':null,'Edad':null}
+        },
+        methods:{
+            createUser(){
+                   this.users.unshift(this.objUser);
+
+                   this.objUser={'nombre':null,'ci':null,'telefono':null,'edad':null}
+            }
+        },
+        computed:{
+            orderUser(){
+                return this.users.sort(function(a,b){
+                    if(a.nombre <b.edad){
+                        return 1;
+                    }
+                    if(a.nombre < b.edad){
+                        return -1;
+                    }
+                    return 0;
+                });
+            }
+        }
+    });
+</script>
